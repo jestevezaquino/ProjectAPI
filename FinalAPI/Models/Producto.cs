@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FinalAPI.Models
 {
-    public class Productos
+    public class Producto
     {
 
     }
