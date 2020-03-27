@@ -14,18 +14,28 @@ namespace FinalAPI.Services
             apiDBContext = _apiDBContext;
         }
 
+        //Obten una lista de todos los productos
         public List<Producto> ObtenerProductos() 
         {
             var resultado = apiDBContext.Producto.ToList();
             return resultado;
         }
 
-        public Producto ObtenerUnProducto(int id) 
+        //Obten un unico producto pasando por parametro un id
+        public Producto ObtenerProductoPorId(int id) 
         {
             var resultado = apiDBContext.Producto.Where(busqueda => busqueda.ProductoID == id).FirstOrDefault();
             return resultado;
         }
 
+        //Busqueda de producto por nombre
+        public Producto ObtenerProductoPorNombre(string nombre)
+        {
+            var resultado = apiDBContext.Producto.Where(x => x.Nombre == nombre).FirstOrDefault();
+            return resultado;
+        }
+
+        //Agregar un producto a la BD
         public bool AgregarProducto(Producto producto) 
         {
             try
@@ -40,6 +50,7 @@ namespace FinalAPI.Services
             }
         }
 
+        //Editar un producto en BD
         public bool EditarProducto(Producto producto)
         {
             try 
@@ -49,6 +60,141 @@ namespace FinalAPI.Services
                 productoBD.Precio = producto.Precio;
                 apiDBContext.SaveChanges();
 
+                return true;
+            }
+            catch (Exception e) 
+            {
+                return false;
+            }
+        }
+
+        //Elimina un producto de la BD
+        public bool EliminarProducto(int id) 
+        {
+            try
+            {
+                var resultado = apiDBContext.Producto.Where(x => x.ProductoID == id).FirstOrDefault();
+                apiDBContext.Producto.Remove(resultado);
+                apiDBContext.SaveChanges();
+                
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+        }
+
+        //Select de todos los proveedores
+        public List<Proveedor> ObtenerProveedores() 
+        {
+            var resultado = apiDBContext.Proveedor.ToList();
+            return resultado;
+        }
+
+        //Agregar un proveedor
+        public bool AgregarProveedor(Proveedor proveedor) 
+        {
+            try
+            {
+                apiDBContext.Proveedor.Add(proveedor);
+                apiDBContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e) 
+            {
+                return false;
+            }
+        }
+        
+        //Editar un proveedor
+        public bool EditarProveedor(Proveedor proveedor) 
+        {
+            try 
+            {
+                var proveedorBD = apiDBContext.Proveedor.Where(x => x.ProveedorID == proveedor.ProveedorID).FirstOrDefault();
+                proveedorBD.Cedula = proveedor.Cedula;
+                proveedorBD.Nombre = proveedor.Nombre;
+                proveedorBD.Telefono = proveedor.Telefono;
+                proveedorBD.Email = proveedor.Email;
+                apiDBContext.SaveChanges();
+
+                return true;
+            }
+            catch (Exception e) 
+            {
+                return false;                
+            }
+        }
+
+        //Eliminar un proveedor
+        public bool EliminarProveedor(int id) 
+        {
+            try
+            {
+                var proveedorBD = apiDBContext.Proveedor.Where(x => x.ProveedorID == id).FirstOrDefault();
+                apiDBContext.Proveedor.Remove(proveedorBD);
+                apiDBContext.SaveChanges();
+
+                return true;
+            }
+            catch (Exception e) 
+            {
+                return false;                
+            }
+        }
+
+        //Select de Clientes
+        public List<Cliente> ObtenerClientes() 
+        {
+            var resultado = apiDBContext.Cliente.ToList();
+            return resultado;
+        }
+
+        //Agregar un cliente
+        public bool AgregarCliente(Cliente cliente) 
+        {
+            try 
+            {
+                apiDBContext.Cliente.Add(cliente);
+                apiDBContext.SaveChanges();
+                return true;
+            } 
+            catch (Exception e) 
+            {
+                return false;
+            }    
+        }
+
+        //Editar Cliente
+        public bool EditarCliente(Cliente cliente) 
+        {
+            try
+            {
+                var clienteBD = apiDBContext.Cliente.Where(x => x.ClienteID == cliente.ClienteID).FirstOrDefault();
+                clienteBD.Cedula = cliente.Cedula;
+                clienteBD.Nombre = cliente.Nombre;
+                clienteBD.Telefono = cliente.Telefono;
+                clienteBD.Email = cliente.Email;
+                clienteBD.Categoria = cliente.Categoria;
+                apiDBContext.SaveChanges();
+                
+                return true;
+            }
+            catch (Exception e) 
+            {
+                return false;
+            }
+        }
+
+        //Eliminar Cliente
+        public bool EliminarCliente(int id) 
+        {
+            try 
+            {
+                var clienteBD = apiDBContext.Cliente.Where(x => x.ClienteID == id).FirstOrDefault();
+                apiDBContext.Cliente.Remove(clienteBD);
+                apiDBContext.SaveChanges();
                 return true;
             }
             catch (Exception e) 
