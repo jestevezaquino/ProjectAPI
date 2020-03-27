@@ -11,6 +11,7 @@ namespace FinalAPI.Models
     {
         public int FacturaID { get; set; }
         public int ClienteID { get; set; }
+        public string Descripcion { get; set; }
         public Cliente Cliente { get; set; }
         public int CantidadProductos { get; set; }
         public decimal SubTotal { get; set; }
@@ -24,6 +25,7 @@ namespace FinalAPI.Models
             {
                 mapeoFactura.HasKey(x => x.FacturaID);
                 mapeoFactura.Property(x => x.ClienteID).HasColumnName("ClienteID");
+                mapeoFactura.Property(x => x.Descripcion).HasColumnName("Descripcion");
                 mapeoFactura.Property(x => x.CantidadProductos).HasColumnName("CantidadProductos");
                 mapeoFactura.Property(x => x.SubTotal).HasColumnName("SubTotal");
                 mapeoFactura.Property(x => x.DescuentoPorciento).HasColumnName("DescuentoPorciento");
