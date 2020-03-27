@@ -28,7 +28,7 @@ namespace FinalAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<ApiDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConexionDB")));
+            services.AddDbContext<ApiDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConexionBD")));
             services.AddTransient<MantenimientoService, MantenimientoService>();
         }
 

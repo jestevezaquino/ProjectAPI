@@ -19,6 +19,7 @@ namespace FinalAPI.Controllers
             mantenimientoService = _mantenimientoService;
         }
 
+        [HttpGet]
         [Route("obtener_productos")]
         public IActionResult ObtenerProductos() 
         {
