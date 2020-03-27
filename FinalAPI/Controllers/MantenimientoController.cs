@@ -28,6 +28,14 @@ namespace FinalAPI.Controllers
             return Ok(resultado);
         }
 
+        [HttpGet]
+        [Route("obtener_producto/{id}")]
+        public IActionResult ObtenerUnProducto(int id) 
+        {
+            var resultado = mantenimientoService.ObtenerUnProducto(id);
+            return Ok(resultado);
+        }
+
         [HttpPost]
         [Route("agregar_producto")]
         public IActionResult AgregarProducto([FromBody] Producto producto) 
@@ -42,5 +50,21 @@ namespace FinalAPI.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpPut]
+        [Route("editar_producto")]
+        public IActionResult EditarProducto([FromBody] Producto producto)
+        {
+            var resultado = mantenimientoService.EditarProducto(producto);
+            if (resultado)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

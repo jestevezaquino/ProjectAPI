@@ -20,6 +20,12 @@ namespace FinalAPI.Services
             return resultado;
         }
 
+        public Producto ObtenerUnProducto(int id) 
+        {
+            var resultado = apiDBContext.Producto.Where(busqueda => busqueda.ProductoID == id).FirstOrDefault();
+            return resultado;
+        }
+
         public bool AgregarProducto(Producto producto) 
         {
             try
@@ -31,6 +37,23 @@ namespace FinalAPI.Services
             catch (Exception e) 
             {
                 return false;                
+            }
+        }
+
+        public bool EditarProducto(Producto producto)
+        {
+            try 
+            {
+                var productoBD = apiDBContext.Producto.Where(busqueda => busqueda.ProductoID == producto.ProductoID).FirstOrDefault();
+                productoBD.Nombre = producto.Nombre;
+                productoBD.Precio = producto.Precio;
+                apiDBContext.SaveChanges();
+
+                return true;
+            }
+            catch (Exception e) 
+            {
+                return false;
             }
         }
     }
