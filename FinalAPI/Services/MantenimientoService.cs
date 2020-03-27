@@ -19,5 +19,19 @@ namespace FinalAPI.Services
             var resultado = apiDBContext.Producto.ToList();
             return resultado;
         }
+
+        public bool AgregarProducto(Producto producto) 
+        {
+            try
+            {
+                apiDBContext.Add(producto);
+                apiDBContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e) 
+            {
+                return false;                
+            }
+        }
     }
 }
