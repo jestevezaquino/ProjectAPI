@@ -25,14 +25,42 @@ namespace FinalAPI.Services
         public Producto ObtenerProductoPorId(int id) 
         {
             var resultado = apiDBContext.Producto.Where(busqueda => busqueda.ProductoID == id).FirstOrDefault();
-            return resultado;
+            
+            if (resultado != null)
+            {
+                return resultado;
+            }
+            else
+            {
+                resultado = new Producto
+                {
+                    ProductoID = -1,
+                    Nombre = "NOT FOUND",
+                    Precio = 0
+                };
+                return resultado;
+            }
         }
 
         //Busqueda de producto por nombre
         public Producto ObtenerProductoPorNombre(string nombre)
         {
             var resultado = apiDBContext.Producto.Where(x => x.Nombre == nombre).FirstOrDefault();
-            return resultado;
+            
+            if (resultado != null) 
+            {
+                return resultado;
+            }
+            else 
+            {
+                resultado = new Producto
+                {
+                    ProductoID = -1,
+                    Nombre = "NOT FOUND",
+                    Precio = 0
+                };
+                return resultado;
+            }
         }
 
         //Agregar un producto a la BD
@@ -40,7 +68,7 @@ namespace FinalAPI.Services
         {
             try
             {
-                apiDBContext.Add(producto);
+                apiDBContext.Producto.Add(producto);
                 apiDBContext.SaveChanges();
                 return true;
             }

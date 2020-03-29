@@ -38,7 +38,7 @@ namespace FinalAPI.Controllers
         }
 
         [HttpGet]
-        [Route("obtener_producto/{nombre}")]
+        [Route("obtener_producto_nombre/{nombre}")]
         public IActionResult ObtenerProductoPorNombre(string nombre)
         {
             var resultado = mantenimientoService.ObtenerProductoPorNombre(nombre);
