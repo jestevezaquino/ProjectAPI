@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using FinalAPI.Models;
+using FinalAPI.Services;
 
 namespace FinalAPI.Controllers
 {
@@ -11,5 +13,99 @@ namespace FinalAPI.Controllers
     [ApiController]
     public class ProcesosController : ControllerBase
     {
+
+        private readonly ProcesosService procesosService;
+
+        public ProcesosController(ProcesosService _procesosService) 
+        {
+            procesosService = _procesosService;
+        }
+
+        [HttpGet]
+        [Route("obtener_entradas")]
+        public IActionResult ObtenerEntrada() 
+        {
+            var resultado = procesosService.ObtenerEntradas();
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        [Route("obtener_entradas_producto/{prodID}")]
+        public IActionResult ObtenerEntradasPorProducto(int prodID)
+        {
+            var resultado = procesosService.ObtenerEntradasPorProducto(prodID);
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        [Route("obtener_entradas_fecha/{fecha}")]
+        public IActionResult ObtenerEntradasPorFecha(DateTime fecha)
+        {
+            var resultado = procesosService.ObtenerEntradasPorFecha(fecha);
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        [Route("obtener_entradas_proveedor/{provID}")]
+        public IActionResult ObtenerEntradasPorProveedor(int provID)
+        {
+            var resultado = procesosService.ObtenerEntradasPorProveedor(provID);
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        [Route("obtener_entradas_producto_proveedor/{prodID}&&{provID}")]
+        public IActionResult ObtenerEntradaProductoProveedor(int prodID, int provID) 
+        {
+            var resultado = procesosService.ObtenerEntradasProductoProveedor(prodID, provID);
+            return Ok(resultado);
+        }
+
+        [HttpPost]
+        [Route("agregar_entrada")]
+        public IActionResult AgregarEntrada([FromBody] Stock stock)
+        {
+            var resultado = procesosService.AgregarEntrada(stock);
+
+            if (resultado) 
+            {
+                return Ok();
+            }
+            else 
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPut]
+        [Route("editar_entrada")]
+        public IActionResult EditarEntrada([FromBody] Stock stock) 
+        {
+            var resultado = procesosService.EditarEntrada(stock);
+
+            if (resultado) 
+            {
+                return Ok();
+            }
+            else 
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete]
+        [Route("eliminar_entrada/{id}")]
+        public IActionResult EliminarEntrada(int id) 
+        {
+            var resultado = procesosService.EliminarEntrada(id);
+            if (resultado) 
+            {
+                return Ok();
+            }
+            else 
+            {
+                return BadRequest();
+            }
+        }
     }
 }
