@@ -120,6 +120,52 @@ namespace FinalAPI.Services
             return resultado;
         }
 
+        //Obten un unico proveedor pasando por parametro un id
+        public Proveedor ObtenerProveedorPorId(int id)
+        {
+            var resultado = apiDBContext.Proveedor.Where(busqueda => busqueda.ProveedorID == id).FirstOrDefault();
+
+            if (resultado != null)
+            {
+                return resultado;
+            }
+            else
+            {
+                resultado = new Proveedor
+                {
+                    ProveedorID = -1,
+                    Cedula = "NOT FOUND",
+                    Nombre = "NOT FOUND",
+                    Telefono = "NOT FOUND",
+                    Email = "NOT FOUND"
+                };
+                return resultado;
+            }
+        }
+
+        //Busqueda de proveedor por nombre
+        public Proveedor ObtenerProveedorPorNombre(string nombre)
+        {
+            var resultado = apiDBContext.Proveedor.Where(x => x.Nombre == nombre).FirstOrDefault();
+
+            if (resultado != null)
+            {
+                return resultado;
+            }
+            else
+            {
+                resultado = new Proveedor
+                {
+                    ProveedorID = -1,
+                    Cedula = "NOT FOUND",
+                    Nombre = "NOT FOUND",
+                    Telefono = "NOT FOUND",
+                    Email = "NOT FOUND"
+                };
+                return resultado;
+            }
+        }
+
         //Agregar un proveedor
         public bool AgregarProveedor(Proveedor proveedor) 
         {
@@ -177,6 +223,54 @@ namespace FinalAPI.Services
         {
             var resultado = apiDBContext.Cliente.ToList();
             return resultado;
+        }
+
+        //Obten un unico cliente pasando por parametro un id
+        public Cliente ObtenerClientePorId(int id)
+        {
+            var resultado = apiDBContext.Cliente.Where(busqueda => busqueda.ClienteID == id).FirstOrDefault();
+
+            if (resultado != null)
+            {
+                return resultado;
+            }
+            else
+            {
+                resultado = new Cliente
+                {
+                    ClienteID = -1,
+                    Cedula = "NOT FOUND",
+                    Nombre = "NOT FOUND",
+                    Telefono = "NOT FOUND",
+                    Email = "NOT FOUND",
+                    Categoria = "NOT FOUND"
+                };
+                return resultado;
+            }
+        }
+
+        //Busqueda de cliente por nombre
+        public Cliente ObtenerClientePorNombre(string nombre)
+        {
+            var resultado = apiDBContext.Cliente.Where(x => x.Nombre == nombre).FirstOrDefault();
+
+            if (resultado != null)
+            {
+                return resultado;
+            }
+            else
+            {
+                resultado = new Cliente
+                {
+                    ClienteID = -1,
+                    Cedula = "NOT FOUND",
+                    Nombre = "NOT FOUND",
+                    Telefono = "NOT FOUND",
+                    Email = "NOT FOUND",
+                    Categoria = "NOT FOUND"
+                };
+                return resultado;
+            }
         }
 
         //Agregar un cliente

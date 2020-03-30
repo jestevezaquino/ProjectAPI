@@ -98,6 +98,22 @@ namespace FinalAPI.Controllers
             return Ok(resultado);
         }
 
+        [HttpGet]
+        [Route("obtener_proveedor/{id}")]
+        public IActionResult ObtenerProveedorPorId(int id)
+        {
+            var resultado = mantenimientoService.ObtenerProveedorPorId(id);
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        [Route("obtener_proveedor_nombre/{nombre}")]
+        public IActionResult ObtenerProveedorPorNombre(string nombre)
+        {
+            var resultado = mantenimientoService.ObtenerProveedorPorNombre(nombre);
+            return Ok(resultado);
+        }
+
         [HttpPost]
         [Route("agregar_proveedor")]
         public IActionResult AgregarProveedor ([FromBody] Proveedor proveedor)
@@ -148,6 +164,22 @@ namespace FinalAPI.Controllers
         public IActionResult ObtenerClientes()
         {
             var resultado = mantenimientoService.ObtenerClientes();
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        [Route("obtener_cliente/{id}")]
+        public IActionResult ObtenerClienterPorId(int id)
+        {
+            var resultado = mantenimientoService.ObtenerClientePorId(id);
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        [Route("obtener_cliente_nombre/{nombre}")]
+        public IActionResult ObtenerClientePorNombre(string nombre)
+        {
+            var resultado = mantenimientoService.ObtenerClientePorNombre(nombre);
             return Ok(resultado);
         }
 

@@ -12,7 +12,7 @@ namespace FinalAPI.Models
         public int ProveedorID { get; set; }
         public string Cedula { get; set; }
         public string Nombre { get; set; }
-        public string  Telefono { get; set; }
+        public string Telefono { get; set; }
         public string Email { get; set; }
 
         public class Mapeo
