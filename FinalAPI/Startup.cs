@@ -30,6 +30,7 @@ namespace FinalAPI
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<ApiDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConexionBD")));
             services.AddTransient<MantenimientoService, MantenimientoService>();
+            services.AddTransient<ProcesosService, ProcesosService>();
             services.AddCors(opciones =>
             {
                 opciones.AddPolicy("PermitirTodo", acceso => acceso.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
