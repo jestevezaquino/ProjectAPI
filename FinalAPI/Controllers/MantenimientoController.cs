@@ -28,7 +28,6 @@ namespace FinalAPI.Controllers
             return Ok(resultado);
         }
 
-
         [HttpGet]
         [Route("obtener_producto/{id}")]
         public IActionResult ObtenerProductoPorId(int id)
