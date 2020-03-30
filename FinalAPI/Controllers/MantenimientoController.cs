@@ -114,6 +114,14 @@ namespace FinalAPI.Controllers
             return Ok(resultado);
         }
 
+        [HttpGet]
+        [Route("obtener_proveedor_email/{email}")]
+        public IActionResult ObtenerProveedorPorEmail(string email)
+        {
+            var resultado = mantenimientoService.ObtenerProveedorPorEmail(email);
+            return Ok(resultado);
+        }
+
         [HttpPost]
         [Route("agregar_proveedor")]
         public IActionResult AgregarProveedor ([FromBody] Proveedor proveedor)
@@ -180,6 +188,14 @@ namespace FinalAPI.Controllers
         public IActionResult ObtenerClientePorNombre(string nombre)
         {
             var resultado = mantenimientoService.ObtenerClientePorNombre(nombre);
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        [Route("obtener_cliente_categoria/{categoria}")]
+        public IActionResult ObtenerClientePorCategoria(string categoria)
+        {
+            var resultado = mantenimientoService.ObtenerClientePorCategoria(categoria);
             return Ok(resultado);
         }
 

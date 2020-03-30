@@ -166,6 +166,29 @@ namespace FinalAPI.Services
             }
         }
 
+        //Busqueda de proveedor por Email
+        public Proveedor ObtenerProveedorPorEmail(string email)
+        {
+            var resultado = apiDBContext.Proveedor.Where(x => x.Email == email).FirstOrDefault();
+
+            if (resultado != null)
+            {
+                return resultado;
+            }
+            else
+            {
+                resultado = new Proveedor
+                {
+                    ProveedorID = -1,
+                    Cedula = "NOT FOUND",
+                    Nombre = "NOT FOUND",
+                    Telefono = "NOT FOUND",
+                    Email = "NOT FOUND"
+                };
+                return resultado;
+            }
+        }
+
         //Agregar un proveedor
         public bool AgregarProveedor(Proveedor proveedor) 
         {
@@ -253,6 +276,30 @@ namespace FinalAPI.Services
         public Cliente ObtenerClientePorNombre(string nombre)
         {
             var resultado = apiDBContext.Cliente.Where(x => x.Nombre == nombre).FirstOrDefault();
+
+            if (resultado != null)
+            {
+                return resultado;
+            }
+            else
+            {
+                resultado = new Cliente
+                {
+                    ClienteID = -1,
+                    Cedula = "NOT FOUND",
+                    Nombre = "NOT FOUND",
+                    Telefono = "NOT FOUND",
+                    Email = "NOT FOUND",
+                    Categoria = "NOT FOUND"
+                };
+                return resultado;
+            }
+        }
+
+        //Busqueda de cliente por categoria
+        public Cliente ObtenerClientePorCategoria(string categoria)
+        {
+            var resultado = apiDBContext.Cliente.Where(x => x.Categoria == categoria).FirstOrDefault();
 
             if (resultado != null)
             {
