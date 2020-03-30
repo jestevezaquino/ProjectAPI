@@ -11,20 +11,20 @@ namespace FinalAPI.Services
 
         private readonly ApiDBContext apiDBContext;
 
-        public ProcesosService(ApiDBContext _apiDBContext) 
+        public ProcesosService(ApiDBContext _apiDBContext)
         {
             apiDBContext = _apiDBContext;
         }
 
         //Obtener los registros del stock
-        public List<Stock> ObtenerEntradas() 
+        public List<Stock> ObtenerEntradas()
         {
             var resultado = apiDBContext.Stock.ToList();
             return resultado;
         }
 
         //Obtener los registros del stock filtrando por producto
-        public List<Stock> ObtenerEntradasPorProducto(int prodID) 
+        public List<Stock> ObtenerEntradasPorProducto(int prodID)
         {
             var resultado = apiDBContext.Stock.Where(x => x.ProductoID == prodID).ToList();
             return resultado;
@@ -45,15 +45,15 @@ namespace FinalAPI.Services
         }
 
         //Obtener los registros del stock filtrando por producto y proveedor
-        public Stock ObtenerEntradasProductoProveedor(int prodID, int provID)
+        public Stock ObtenerEntradaProductoProveedor(int prodID, int provID)
         {
-            var resultado = apiDBContext.Stock.Where(x=>x.ProductoID == prodID && x.ProveedorID == provID).FirstOrDefault();
-            
-            if (resultado != null) 
+            var resultado = apiDBContext.Stock.Where(x => x.ProductoID == prodID && x.ProveedorID == provID).FirstOrDefault();
+
+            if (resultado != null)
             {
                 return resultado;
             }
-            else 
+            else
             {
                 resultado = new Stock
                 {
@@ -68,24 +68,24 @@ namespace FinalAPI.Services
         }
 
         //Agregar entrada al stock/inventario
-        public bool AgregarEntrada(Stock stock) 
+        public bool AgregarEntrada(Stock stock)
         {
-            try 
+            try
             {
                 apiDBContext.Stock.Add(stock);
                 apiDBContext.SaveChanges();
                 return true;
             }
-            catch(Exception e) 
+            catch (Exception e)
             {
                 return false;
             }
         }
 
         //Editar entrada al stock/inventario
-        public bool EditarEntrada(Stock stock) 
+        public bool EditarEntrada(Stock stock)
         {
-            try 
+            try
             {
                 var entradaDB = apiDBContext.Stock.Where(x => x.StockID == stock.StockID).FirstOrDefault();
                 entradaDB.ProductoID = stock.ProductoID;
@@ -95,23 +95,59 @@ namespace FinalAPI.Services
                 apiDBContext.SaveChanges();
                 return true;
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
                 return false;
             }
         }
 
         //Eliminar entrada (Cuando la cantidad de un producto en el stock llegue a 0)
-        public bool EliminarEntrada(int stockID) 
+        public bool EliminarEntrada(int stockID)
         {
-            try 
+            try
             {
                 var entradaDB = apiDBContext.Stock.Where(x => x.StockID == stockID).FirstOrDefault();
                 apiDBContext.Stock.Remove(entradaDB);
                 apiDBContext.SaveChanges();
                 return true;
             }
-            catch (Exception e) 
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        //Obtener todas las facturas
+        public List<Factura> ObtenerFacturas()
+        {
+            var resultado = apiDBContext.Factura.ToList();
+            return resultado;
+        }
+
+        //Obtener facturas por fecha
+        public List<Factura> ObtenerFacturasPorFecha(DateTime fecha)
+        {
+            var resultado = apiDBContext.Factura.Where(x => x.Fecha == fecha).ToList();
+            return resultado;
+        }
+
+        //Obtener facturas por cliente
+        public List<Factura> ObtenerFacturasPorCliente(int clienteID)
+        {
+            var resultado = apiDBContext.Factura.Where(x => x.ClienteID == clienteID).ToList();
+            return resultado;
+        }
+
+        //Agregar factura
+        public bool AgregarFactura(Factura factura)
+        {
+            try
+            {
+                var resultado = apiDBContext.Factura.Add(factura);
+                apiDBContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
             {
                 return false;
             }

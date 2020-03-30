@@ -57,7 +57,7 @@ namespace FinalAPI.Controllers
         [Route("obtener_entradas_producto_proveedor/{prodID}&&{provID}")]
         public IActionResult ObtenerEntradaProductoProveedor(int prodID, int provID) 
         {
-            var resultado = procesosService.ObtenerEntradasProductoProveedor(prodID, provID);
+            var resultado = procesosService.ObtenerEntradaProductoProveedor(prodID, provID);
             return Ok(resultado);
         }
 
@@ -98,6 +98,45 @@ namespace FinalAPI.Controllers
         public IActionResult EliminarEntrada(int id) 
         {
             var resultado = procesosService.EliminarEntrada(id);
+            if (resultado) 
+            {
+                return Ok();
+            }
+            else 
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        [Route("obtener_facturas")]
+        public IActionResult ObtenerFacturas() 
+        {
+            var resultado = procesosService.ObtenerFacturas();
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        [Route("obtener_facturas_fecha/{fecha}")]
+        public IActionResult ObtenerFacturasPorFecha(DateTime fecha)
+        {
+            var resultado = procesosService.ObtenerFacturasPorFecha(fecha);
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        [Route("obtener_facturas_cliente/{clienteID}")]
+        public IActionResult ObtenerFacturasPorCliente(int clienteID)
+        {
+            var resultado = procesosService.ObtenerFacturasPorCliente(clienteID);
+            return Ok(resultado);
+        }
+
+        [HttpPost]
+        [Route("agregar_factura")]
+        public IActionResult AgregarFactura([FromBody] Factura factura) 
+        {
+            var resultado = procesosService.AgregarFactura(factura);
             if (resultado) 
             {
                 return Ok();
