@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,35 +20,35 @@ namespace FinalAPI.Services
         //Obtener los registros del stock
         public List<Stock> ObtenerEntradas()
         {
-            var resultado = apiDBContext.Stock.ToList();
+            var resultado = apiDBContext.Stock.Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList();
             return resultado;
         }
 
         //Obtener los registros del stock filtrando por producto
         public List<Stock> ObtenerEntradasPorProducto(int prodID)
         {
-            var resultado = apiDBContext.Stock.Where(x => x.ProductoID == prodID).ToList();
+            var resultado = apiDBContext.Stock.Where(x => x.ProductoID == prodID).Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList();
             return resultado;
         }
 
         //Obtener los registros del stock filtrando por fecha
         public List<Stock> ObtenerEntradasPorFecha(DateTime fecha)
         {
-            var resultado = apiDBContext.Stock.Where(x => x.Fecha == fecha).ToList();
+            var resultado = apiDBContext.Stock.Where(x => x.Fecha == fecha).Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList();
             return resultado;
         }
 
         //Obtener los registros del stock filtrando por proveedor
         public List<Stock> ObtenerEntradasPorProveedor(int provID)
         {
-            var resultado = apiDBContext.Stock.Where(x => x.ProveedorID == provID).ToList();
+            var resultado = apiDBContext.Stock.Where(x => x.ProveedorID == provID).Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList(); ;
             return resultado;
         }
 
         //Obtener los registros del stock filtrando por producto y proveedor
         public Stock ObtenerEntradaProductoProveedor(int prodID, int provID)
         {
-            var resultado = apiDBContext.Stock.Where(x => x.ProductoID == prodID && x.ProveedorID == provID).FirstOrDefault();
+            var resultado = apiDBContext.Stock.Where(x => x.ProductoID == prodID && x.ProveedorID == provID).Include(x => x.ProductoID).Include(x => x.ProveedorID).FirstOrDefault();
 
             if (resultado != null)
             {
@@ -120,21 +121,21 @@ namespace FinalAPI.Services
         //Obtener todas las facturas
         public List<Factura> ObtenerFacturas()
         {
-            var resultado = apiDBContext.Factura.ToList();
+            var resultado = apiDBContext.Factura.Include(x=>x.Cliente).ToList();
             return resultado;
         }
 
         //Obtener facturas por fecha
         public List<Factura> ObtenerFacturasPorFecha(DateTime fecha)
         {
-            var resultado = apiDBContext.Factura.Where(x => x.Fecha == fecha).ToList();
+            var resultado = apiDBContext.Factura.Where(x => x.Fecha == fecha).Include(x => x.Cliente).ToList();
             return resultado;
         }
 
         //Obtener facturas por cliente
         public List<Factura> ObtenerFacturasPorCliente(int clienteID)
         {
-            var resultado = apiDBContext.Factura.Where(x => x.ClienteID == clienteID).ToList();
+            var resultado = apiDBContext.Factura.Where(x => x.ClienteID == clienteID).Include(x => x.Cliente).ToList();
             return resultado;
         }
 
