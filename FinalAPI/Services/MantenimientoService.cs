@@ -143,6 +143,29 @@ namespace FinalAPI.Services
             }
         }
 
+        //Obten un unico proveedor pasando por parametro su cedula
+        public Proveedor ObtenerProveedorPorCedula(string cedula)
+        {
+            var resultado = apiDBContext.Proveedor.Where(busqueda => busqueda.Cedula == cedula).FirstOrDefault();
+
+            if (resultado != null)
+            {
+                return resultado;
+            }
+            else
+            {
+                resultado = new Proveedor
+                {
+                    ProveedorID = -1,
+                    Cedula = "NOT FOUND",
+                    Nombre = "NOT FOUND",
+                    Telefono = "NOT FOUND",
+                    Email = "NOT FOUND"
+                };
+                return resultado;
+            }
+        }
+
         //Busqueda de proveedor por nombre
         public Proveedor ObtenerProveedorPorNombre(string nombre)
         {
@@ -252,6 +275,30 @@ namespace FinalAPI.Services
         public Cliente ObtenerClientePorId(int id)
         {
             var resultado = apiDBContext.Cliente.Where(busqueda => busqueda.ClienteID == id).FirstOrDefault();
+
+            if (resultado != null)
+            {
+                return resultado;
+            }
+            else
+            {
+                resultado = new Cliente
+                {
+                    ClienteID = -1,
+                    Cedula = "NOT FOUND",
+                    Nombre = "NOT FOUND",
+                    Telefono = "NOT FOUND",
+                    Email = "NOT FOUND",
+                    Categoria = "NOT FOUND"
+                };
+                return resultado;
+            }
+        }
+
+        //Obten un unico cliente pasando por parametro su cedula
+        public Cliente ObtenerClientePorCedula(string cedula)
+        {
+            var resultado = apiDBContext.Cliente.Where(busqueda => busqueda.Cedula == cedula).FirstOrDefault();
 
             if (resultado != null)
             {

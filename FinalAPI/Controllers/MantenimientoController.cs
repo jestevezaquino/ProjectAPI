@@ -106,6 +106,14 @@ namespace FinalAPI.Controllers
         }
 
         [HttpGet]
+        [Route("obtener_proveedor_cedula/{cedula}")]
+        public IActionResult ObtenerProveedorPorCedula(string cedula)
+        {
+            var resultado = mantenimientoService.ObtenerProveedorPorCedula(cedula);
+            return Ok(resultado);
+        }
+
+        [HttpGet]
         [Route("obtener_proveedor_nombre/{nombre}")]
         public IActionResult ObtenerProveedorPorNombre(string nombre)
         {
@@ -176,9 +184,17 @@ namespace FinalAPI.Controllers
 
         [HttpGet]
         [Route("obtener_cliente/{id}")]
-        public IActionResult ObtenerClienterPorId(int id)
+        public IActionResult ObtenerClientePorId(int id)
         {
             var resultado = mantenimientoService.ObtenerClientePorId(id);
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        [Route("obtener_cliente_cedula/{cedula}")]
+        public IActionResult ObtenerClientePorCedula(string cedula)
+        {
+            var resultado = mantenimientoService.ObtenerClientePorCedula(cedula);
             return Ok(resultado);
         }
 
