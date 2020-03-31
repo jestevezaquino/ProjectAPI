@@ -297,27 +297,10 @@ namespace FinalAPI.Services
         }
 
         //Busqueda de cliente por categoria
-        public Cliente ObtenerClientePorCategoria(string categoria)
+        public List<Cliente> ObtenerClientesPorCategoria(string categoria)
         {
-            var resultado = apiDBContext.Cliente.Where(x => x.Categoria == categoria).FirstOrDefault();
-
-            if (resultado != null)
-            {
-                return resultado;
-            }
-            else
-            {
-                resultado = new Cliente
-                {
-                    ClienteID = -1,
-                    Cedula = "NOT FOUND",
-                    Nombre = "NOT FOUND",
-                    Telefono = "NOT FOUND",
-                    Email = "NOT FOUND",
-                    Categoria = "NOT FOUND"
-                };
-                return resultado;
-            }
+            var resultado = apiDBContext.Cliente.Where(x => x.Categoria == categoria).ToList();
+            return resultado;
         }
 
         //Agregar un cliente

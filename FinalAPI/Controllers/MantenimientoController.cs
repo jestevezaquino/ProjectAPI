@@ -191,10 +191,10 @@ namespace FinalAPI.Controllers
         }
 
         [HttpGet]
-        [Route("obtener_cliente_categoria/{categoria}")]
-        public IActionResult ObtenerClientePorCategoria(string categoria)
+        [Route("obtener_clientes_categoria/{categoria}")]
+        public IActionResult ObtenerClientesPorCategoria(string categoria)
         {
-            var resultado = mantenimientoService.ObtenerClientePorCategoria(categoria);
+            var resultado = mantenimientoService.ObtenerClientesPorCategoria(categoria);
             return Ok(resultado);
         }
 

@@ -44,7 +44,7 @@ namespace FinalAPI.Controllers
                 "14 - Obtener clientes (GET): /api/mantenimiento/obtener_clientes",
                 "15 - Obtener un cliente mediante id (GET): /api/mantenimiento/obtener_cliente/{id}",
                 "16 - Obtener un cliente mediante su nombre (GET): /api/mantenimiento/obtener_cliente_nombre/{nombre}",
-                "17 - Obtener un cliente mediante su categoria (GET): /api/mantenimiento/obtener_cliente_categoria/{categoria}",
+                "17 - Obtener listado de clientes por categoria (GET): /api/mantenimiento/obtener_clientes_categoria/{categoria}",
                 "18 - Agregar un cliente (POST): /api/mantenimiento/agregar_cliente",
                 "19 - Editar un cliente (PUT): /api/mantenimiento/editar_cliente",
                 "20 - Eliminar un cliente (DELETE): /api/mantenimiento/eliminar_cliente/{id}",
