@@ -17,38 +17,38 @@ namespace FinalAPI.Services
             apiDBContext = _apiDBContext;
         }
 
-        //Obtener los registros del stock
-        public List<Stock> ObtenerEntradas()
+        //Obtener los registros de la tabla entradas.
+        public List<Entrada> ObtenerEntradas()
         {
-            var resultado = apiDBContext.Stock.Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList();
+            var resultado = apiDBContext.Entrada.Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList();
             return resultado;
         }
 
-        //Obtener los registros del stock filtrando por producto
-        public List<Stock> ObtenerEntradasPorProducto(int prodID)
+        //Obtener los registros de entradas filtrando por producto
+        public List<Entrada> ObtenerEntradasPorProducto(int prodID)
         {
-            var resultado = apiDBContext.Stock.Where(x => x.ProductoID == prodID).Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList();
+            var resultado = apiDBContext.Entrada.Where(x => x.ProductoID == prodID).Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList();
             return resultado;
         }
 
-        //Obtener los registros del stock filtrando por fecha
-        public List<Stock> ObtenerEntradasPorFecha(DateTime fecha)
+        //Obtener los registros de entradas filtrando por fecha
+        public List<Entrada> ObtenerEntradasPorFecha(DateTime fecha)
         {
-            var resultado = apiDBContext.Stock.Where(x => x.Fecha == fecha).Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList();
+            var resultado = apiDBContext.Entrada.Where(x => x.Fecha == fecha).Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList();
             return resultado;
         }
 
-        //Obtener los registros del stock filtrando por proveedor
-        public List<Stock> ObtenerEntradasPorProveedor(int provID)
+        //Obtener los registros de entradas filtrando por proveedor
+        public List<Entrada> ObtenerEntradasPorProveedor(int provID)
         {
-            var resultado = apiDBContext.Stock.Where(x => x.ProveedorID == provID).Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList(); ;
+            var resultado = apiDBContext.Entrada.Where(x => x.ProveedorID == provID).Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList(); ;
             return resultado;
         }
 
-        //Obtener los registros del stock filtrando por producto y proveedor
-        public Stock ObtenerEntradaProductoProveedor(int prodID, int provID)
+        //Obtener los registros de entradas filtrando por producto y proveedor
+        public Entrada ObtenerEntradaProductoProveedor(int prodID, int provID)
         {
-            var resultado = apiDBContext.Stock.Where(x => x.ProductoID == prodID && x.ProveedorID == provID).Include(x => x.ProductoID).Include(x => x.ProveedorID).FirstOrDefault();
+            var resultado = apiDBContext.Entrada.Where(x => x.ProductoID == prodID && x.ProveedorID == provID).Include(x => x.ProductoID).Include(x => x.ProveedorID).FirstOrDefault();
 
             if (resultado != null)
             {
@@ -56,9 +56,9 @@ namespace FinalAPI.Services
             }
             else
             {
-                resultado = new Stock
+                resultado = new Entrada
                 {
-                    StockID = -1,
+                    EntradaID = -1,
                     ProductoID = -1,
                     Cantidad = 0,
                     ProveedorID = -1,
@@ -68,12 +68,12 @@ namespace FinalAPI.Services
             }
         }
 
-        //Agregar entrada al stock/inventario
-        public bool AgregarEntrada(Stock stock)
+        //Agregar entrada
+        public bool AgregarEntrada(Entrada entrada)
         {
             try
             {
-                apiDBContext.Stock.Add(stock);
+                apiDBContext.Entrada.Add(entrada);
                 apiDBContext.SaveChanges();
                 return true;
             }
@@ -83,16 +83,16 @@ namespace FinalAPI.Services
             }
         }
 
-        //Editar entrada al stock/inventario
-        public bool EditarEntrada(Stock stock)
+        //Editar entrada
+        public bool EditarEntrada(Entrada entrada)
         {
             try
             {
-                var entradaDB = apiDBContext.Stock.Where(x => x.StockID == stock.StockID).FirstOrDefault();
-                entradaDB.ProductoID = stock.ProductoID;
-                entradaDB.Cantidad = stock.Cantidad;
-                entradaDB.ProveedorID = stock.ProveedorID;
-                entradaDB.Fecha = stock.Fecha;
+                var entradaDB = apiDBContext.Entrada.Where(x => x.EntradaID == entrada.EntradaID).FirstOrDefault();
+                entradaDB.ProductoID = entrada.ProductoID;
+                entradaDB.Cantidad = entrada.Cantidad;
+                entradaDB.ProveedorID = entrada.ProveedorID;
+                entradaDB.Fecha = entrada.Fecha;
                 apiDBContext.SaveChanges();
                 return true;
             }
@@ -102,13 +102,13 @@ namespace FinalAPI.Services
             }
         }
 
-        //Eliminar entrada (Cuando la cantidad de un producto en el stock llegue a 0)
+        //Eliminar entrada
         public bool EliminarEntrada(int stockID)
         {
             try
             {
-                var entradaDB = apiDBContext.Stock.Where(x => x.StockID == stockID).FirstOrDefault();
-                apiDBContext.Stock.Remove(entradaDB);
+                var entradaDB = apiDBContext.Entrada.Where(x => x.EntradaID == stockID).FirstOrDefault();
+                apiDBContext.Entrada.Remove(entradaDB);
                 apiDBContext.SaveChanges();
                 return true;
             }

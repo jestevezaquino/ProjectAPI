@@ -63,9 +63,9 @@ namespace FinalAPI.Controllers
 
         [HttpPost]
         [Route("agregar_entrada")]
-        public IActionResult AgregarEntrada([FromBody] Stock stock)
+        public IActionResult AgregarEntrada([FromBody] Entrada entrada)
         {
-            var resultado = procesosService.AgregarEntrada(stock);
+            var resultado = procesosService.AgregarEntrada(entrada);
 
             if (resultado) 
             {
@@ -79,9 +79,9 @@ namespace FinalAPI.Controllers
 
         [HttpPut]
         [Route("editar_entrada")]
-        public IActionResult EditarEntrada([FromBody] Stock stock) 
+        public IActionResult EditarEntrada([FromBody] Entrada entrada) 
         {
-            var resultado = procesosService.EditarEntrada(stock);
+            var resultado = procesosService.EditarEntrada(entrada);
 
             if (resultado) 
             {
