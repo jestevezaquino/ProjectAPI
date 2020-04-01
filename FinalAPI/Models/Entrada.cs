@@ -26,7 +26,7 @@ namespace FinalAPI.Models
                 mapeoEntrada.Property(x => x.Cantidad).HasColumnName("Cantidad");
                 mapeoEntrada.Property(x => x.ProveedorID).HasColumnName("ProveedorID");
                 mapeoEntrada.Property(x => x.Fecha).HasColumnName("Fecha");
-                mapeoEntrada.ToTable("Entrada");
+                mapeoEntrada.ToTable("Entradas");
                 mapeoEntrada.HasOne(x => x.Producto);
                 mapeoEntrada.HasOne(x => x.Proveedor);
             }
