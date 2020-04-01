@@ -17,6 +17,7 @@ namespace FinalAPI
         public DbSet<Producto> Producto { get; set; }
         public DbSet<Proveedor> Proveedor { get; set; }
         public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<Entrada> Entrada { get; set; }
         public DbSet<Stock> Stock { get; set; }
         public DbSet<Factura> Factura { get; set; }
 
@@ -25,6 +26,7 @@ namespace FinalAPI
             new Producto.Mapeo(modeloCreador.Entity<Producto>());
             new Proveedor.Mapeo(modeloCreador.Entity<Proveedor>());
             new Cliente.Mapeo(modeloCreador.Entity<Cliente>());
+            new Entrada.Mapeo(modeloCreador.Entity<Entrada>());
             new Stock.Mapeo(modeloCreador.Entity<Stock>());
             new Factura.Mapeo(modeloCreador.Entity<Factura>());
         }
