@@ -49,7 +49,7 @@ namespace FinalAPI.Controllers
                 "19 - Obtener listado de clientes por categoria (GET): /api/mantenimiento/obtener_clientes_categoria/{categoria}",
                 "20 - Agregar un cliente (POST): /api/mantenimiento/agregar_cliente",
                 "21 - Editar un cliente (PUT): /api/mantenimiento/editar_cliente",
-                "22 - Eliminar un cliente (DELETE): /api/mantenimiento/eliminar_cliente/{id}",
+                "22 - Eliminar un cliente (DELETE): /api/mantenimiento/eliminar_cliente/{id}"
             };
         }
 
@@ -71,7 +71,7 @@ namespace FinalAPI.Controllers
                 "8 - Obtener listado de facturas (GET): /api/procesos/obtener_facturas",
                 "9 - Obtener listado de facturas por fecha (GET): /api/procesos/obtener_facturas_fecha/{fecha}",
                 "10 - Obtener listado de facturas por clientes (GET): /api/procesos/obtener_facturas_cliente/{clienteID}",
-                "11 - Agregar una factura (POST): /api/procesos/agregar_factura",
+                "11 - Agregar una factura (POST): /api/procesos/agregar_factura"
             };
         }
     }

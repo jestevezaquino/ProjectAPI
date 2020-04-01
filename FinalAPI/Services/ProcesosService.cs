@@ -73,9 +73,50 @@ namespace FinalAPI.Services
         {
             try
             {
-                apiDBContext.Entrada.Add(entrada);
-                apiDBContext.SaveChanges();
-                return true;
+                //Busco en la tabla stock si el producto de la entrada actual ya existe.
+                var entradaStockDB = apiDBContext.Stock.Where(x => x.ProductoID == entrada.ProductoID).FirstOrDefault();
+                //Busco el registro del proveedor que quieren introducir en entrada.
+                var proveedor = apiDBContext.Proveedor.Where(x => x.ProveedorID == entrada.ProveedorID).FirstOrDefault();
+
+                /* Sino encuentra nada, añade el objeto/modelo a la tabla entrada, crea un objeto stock, 
+                 toma los datos del objeto entrada y tambien añade el objeto stock a la tabla Stock. */
+
+                if (entradaStockDB == null) 
+                {
+                    apiDBContext.Entrada.Add(entrada);
+                    apiDBContext.Stock.Add(new Stock
+                    {
+                        ProductoID = entrada.ProductoID,
+                        Cantidad = entrada.Cantidad,
+                        Proveedores = proveedor.Nombre,
+                        Fecha = entrada.Fecha
+                    });
+                    apiDBContext.SaveChanges();
+                    return true;
+                }
+                else 
+                {
+                    apiDBContext.Entrada.Add(entrada);
+
+                    /* En caso de encontrar un registro que ya contenga el mismo producto del objeto entrada, entonces,
+                     se actualizan las propiedades de ese registro actual, con los nuevo datos de la entrada. */
+
+                    entradaStockDB.Cantidad += entrada.Cantidad;
+
+                    /* Compruebo si ese registro ya contiene el nombre del proveedor antes de actualizar */
+                    if (entradaStockDB.Proveedores.Contains(proveedor.Nombre)) 
+                    {
+                        
+                    }
+                    else
+                    {
+                        entradaStockDB.Proveedores = entradaStockDB.Proveedores + ", " + proveedor.Nombre;
+                    }
+
+                    entradaStockDB.Fecha = entrada.Fecha;
+                    apiDBContext.SaveChanges();
+                    return true;
+                }
             }
             catch (Exception e)
             {

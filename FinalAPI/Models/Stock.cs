@@ -13,8 +13,7 @@ namespace FinalAPI.Models
         public int ProductoID { get; set; }
         public Producto Producto { get; set; }
         public int Cantidad { get; set; }
-        public int ProveedorID { get; set; }
-        public Proveedor Proveedor { get; set; }
+        public string Proveedores { get; set; }
         public DateTime Fecha { get; set; }
 
         public class Mapeo 
@@ -24,11 +23,10 @@ namespace FinalAPI.Models
                 mapeoStock.HasKey(x => x.StockID);
                 mapeoStock.Property(x => x.ProductoID).HasColumnName("ProductoID");
                 mapeoStock.Property(x => x.Cantidad).HasColumnName("Cantidad");
-                mapeoStock.Property(x => x.ProveedorID).HasColumnName("ProveedorID");
+                mapeoStock.Property(x => x.Proveedores).HasColumnName("Proveedores");
                 mapeoStock.Property(x => x.Fecha).HasColumnName("Fecha");
                 mapeoStock.ToTable("Stock");
                 mapeoStock.HasOne(x=>x.Producto);
-                mapeoStock.HasOne(x => x.Proveedor);
             }
         }
     }
