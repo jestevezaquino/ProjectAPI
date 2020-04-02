@@ -77,22 +77,6 @@ namespace FinalAPI.Controllers
             }
         }
 
-        [HttpPut]
-        [Route("editar_entrada")]
-        public IActionResult EditarEntrada([FromBody] Entrada entrada) 
-        {
-            var resultado = procesosService.EditarEntrada(entrada);
-
-            if (resultado) 
-            {
-                return Ok();
-            }
-            else 
-            {
-                return BadRequest();
-            }
-        }
-
         [HttpDelete]
         [Route("eliminar_entrada/{id}")]
         public IActionResult EliminarEntrada(int id) 
@@ -103,6 +87,46 @@ namespace FinalAPI.Controllers
                 return Ok();
             }
             else 
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        [Route("obtener_stock")]
+        public IActionResult ObtenerStock()
+        {
+            var resultado = procesosService.ObtenerStock();
+            return Ok(resultado);
+        }
+
+        [HttpPut]
+        [Route("editar_stock")]
+        public IActionResult EditarStock(Stock stock)
+        {
+            var resultado = procesosService.EditarStock(stock);
+
+            if (resultado)
+            {
+                return Ok();
+            }
+            else 
+            {
+                return BadRequest();            
+            }
+        }
+
+        [HttpDelete]
+        [Route("eliminar_stock/{prodID}")]
+        public IActionResult EliminarStock(int prodID)
+        {
+            var resultado = procesosService.EliminarStock(prodID);
+
+            if (resultado)
+            {
+                return Ok();
+            }
+            else
             {
                 return BadRequest();
             }

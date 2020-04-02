@@ -20,35 +20,35 @@ namespace FinalAPI.Services
         //Obtener los registros de la tabla entradas.
         public List<Entrada> ObtenerEntradas()
         {
-            var resultado = apiDBContext.Entrada.Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList();
+            var resultado = apiDBContext.Entrada.Include(x => x.Producto).Include(x => x.Proveedor).ToList();
             return resultado;
         }
 
         //Obtener los registros de entradas filtrando por producto
         public List<Entrada> ObtenerEntradasPorProducto(int prodID)
         {
-            var resultado = apiDBContext.Entrada.Where(x => x.ProductoID == prodID).Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList();
+            var resultado = apiDBContext.Entrada.Where(x => x.ProductoID == prodID).Include(x => x.Producto).Include(x => x.Proveedor).ToList();
             return resultado;
         }
 
         //Obtener los registros de entradas filtrando por fecha
         public List<Entrada> ObtenerEntradasPorFecha(DateTime fecha)
         {
-            var resultado = apiDBContext.Entrada.Where(x => x.Fecha == fecha).Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList();
+            var resultado = apiDBContext.Entrada.Where(x => x.Fecha == fecha).Include(x => x.Producto).Include(x => x.Proveedor).ToList();
             return resultado;
         }
 
         //Obtener los registros de entradas filtrando por proveedor
         public List<Entrada> ObtenerEntradasPorProveedor(int provID)
         {
-            var resultado = apiDBContext.Entrada.Where(x => x.ProveedorID == provID).Include(x => x.ProductoID).Include(x => x.ProveedorID).ToList(); ;
+            var resultado = apiDBContext.Entrada.Where(x => x.ProveedorID == provID).Include(x => x.Producto).Include(x => x.Proveedor).ToList(); ;
             return resultado;
         }
 
         //Obtener los registros de entradas filtrando por producto y proveedor
         public Entrada ObtenerEntradaProductoProveedor(int prodID, int provID)
         {
-            var resultado = apiDBContext.Entrada.Where(x => x.ProductoID == prodID && x.ProveedorID == provID).Include(x => x.ProductoID).Include(x => x.ProveedorID).FirstOrDefault();
+            var resultado = apiDBContext.Entrada.Where(x => x.ProductoID == prodID && x.ProveedorID == provID).Include(x => x.Producto).Include(x => x.Proveedor).FirstOrDefault();
 
             if (resultado != null)
             {
@@ -124,16 +124,13 @@ namespace FinalAPI.Services
             }
         }
 
-        //Editar entrada
-        public bool EditarEntrada(Entrada entrada)
+        //Eliminar entrada
+        public bool EliminarEntrada(int entradaID)
         {
             try
             {
-                var entradaDB = apiDBContext.Entrada.Where(x => x.EntradaID == entrada.EntradaID).FirstOrDefault();
-                entradaDB.ProductoID = entrada.ProductoID;
-                entradaDB.Cantidad = entrada.Cantidad;
-                entradaDB.ProveedorID = entrada.ProveedorID;
-                entradaDB.Fecha = entrada.Fecha;
+                var entradaDB = apiDBContext.Entrada.Where(x => x.EntradaID == entradaID).FirstOrDefault();
+                apiDBContext.Entrada.Remove(entradaDB);
                 apiDBContext.SaveChanges();
                 return true;
             }
@@ -143,13 +140,42 @@ namespace FinalAPI.Services
             }
         }
 
-        //Eliminar entrada
-        public bool EliminarEntrada(int stockID)
+        //Obtener todos los registros de la tabla Stock
+        public List<Stock> ObtenerStock()
+        {
+            var resultado = apiDBContext.Stock.Include(x => x.Producto).ToList();
+            return resultado;
+        }
+
+        //Editar Stock
+        public bool EditarStock(Stock stock) 
+        {
+            try 
+            {
+                var stockDB = apiDBContext.Stock.Where(x => x.ProductoID == stock.ProductoID).FirstOrDefault();
+                stockDB.Cantidad = stock.Cantidad;
+
+                if (stockDB.Cantidad <= 0)
+                {
+                    EliminarStock(stockDB.ProductoID);
+                }
+
+                apiDBContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e) 
+            {
+                return false;
+            }
+        }
+
+        //Eliminar Stock
+        public bool EliminarStock(int prodID)
         {
             try
             {
-                var entradaDB = apiDBContext.Entrada.Where(x => x.EntradaID == stockID).FirstOrDefault();
-                apiDBContext.Entrada.Remove(entradaDB);
+                var stockDB = apiDBContext.Stock.Where(x => x.ProductoID == prodID).FirstOrDefault();
+                apiDBContext.Stock.Remove(stockDB);
                 apiDBContext.SaveChanges();
                 return true;
             }
