@@ -133,21 +133,38 @@ namespace FinalAPI.Services
                 var proveedorEliminar = apiDBContext.Proveedor.Where(x => x.ProveedorID == entradaDB.ProveedorID).FirstOrDefault();
                 var busquedaStock = apiDBContext.Stock.Where(x => x.ProductoID == entradaDB.ProductoID).FirstOrDefault();
 
-                if (busquedaStock.Proveedores == proveedorEliminar.Nombre)
+                if(busquedaStock == null) 
                 {
-                    apiDBContext.Stock.Remove(busquedaStock);
+                    
+                }
+                else if (busquedaStock.Proveedores == proveedorEliminar.Nombre)
+                {
+                    busquedaStock.Cantidad -= entradaDB.Cantidad;
+                    if (busquedaStock.Cantidad <= 0)
+                    {
+                        apiDBContext.Stock.Remove(busquedaStock);
+                    }
                 }
                 else if (busquedaStock.Proveedores.StartsWith(proveedorEliminar.Nombre))
                 {
                     int final = busquedaStock.Proveedores.IndexOf(proveedorEliminar.Nombre);
                     busquedaStock.Proveedores = busquedaStock.Proveedores.Substring(proveedorEliminar.Nombre.Length + 2);
                     busquedaStock.Cantidad -= entradaDB.Cantidad;
+                    
+                    if (busquedaStock.Cantidad <= 0)
+                    {
+                        apiDBContext.Stock.Remove(busquedaStock);
+                    }
                 }
                 else if (busquedaStock.Proveedores.EndsWith(proveedorEliminar.Nombre))
                 {
                     int final = busquedaStock.Proveedores.IndexOf(proveedorEliminar.Nombre);
                     busquedaStock.Proveedores = busquedaStock.Proveedores.Substring(0, final - 2);
-                    busquedaStock.Cantidad -= entradaDB.Cantidad;
+                    
+                    if (busquedaStock.Cantidad <= 0)
+                    {
+                        apiDBContext.Stock.Remove(busquedaStock);
+                    }
                 }
                 else
                 {
@@ -157,6 +174,11 @@ namespace FinalAPI.Services
                     string parte2 = busquedaStock.Proveedores.Substring(inicio + largoDelString + 2);
                     busquedaStock.Proveedores = parte1 + ", " + parte2;
                     busquedaStock.Cantidad -= entradaDB.Cantidad;
+                    
+                    if (busquedaStock.Cantidad <= 0)
+                    {
+                        apiDBContext.Stock.Remove(busquedaStock);
+                    }
                 }
 
                 apiDBContext.Entrada.Remove(entradaDB);

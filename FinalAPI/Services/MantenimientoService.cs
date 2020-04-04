@@ -289,41 +289,62 @@ namespace FinalAPI.Services
 
                 foreach (int i in productoProveedor)
                 {
-                   proveedoresEnStock.Add(apiDBContext.Stock.Where(x => x.ProductoID == i).FirstOrDefault());
+                    if(apiDBContext.Stock.Where(x => x.ProductoID == i).FirstOrDefault() != null)
+                    {
+                        proveedoresEnStock.Add(apiDBContext.Stock.Where(x => x.ProductoID == i).FirstOrDefault());
+                    }
                 }
 
                 int contador = 0;
 
-                foreach(Stock ps in proveedoresEnStock) 
+                if (proveedoresEnStock.Count > 0) 
                 {
-                    if (ps.Proveedores == resultado.Nombre) 
+                    foreach (Stock ps in proveedoresEnStock)
                     {
-                        apiDBContext.Stock.Remove(ps);
-                    }
-                    else if (ps.Proveedores.StartsWith(resultado.Nombre))
-                    {
-                        int final = ps.Proveedores.IndexOf(resultado.Nombre);
-                        ps.Proveedores = ps.Proveedores.Substring(resultado.Nombre.Length+2);
-                        ps.Cantidad -= cantidadProductos.ElementAt(contador);
-                    }
-                    else if (ps.Proveedores.EndsWith(resultado.Nombre)) 
-                    {
-                        int final = ps.Proveedores.IndexOf(resultado.Nombre);
-                        ps.Proveedores = ps.Proveedores.Substring(0,final-2);
-                        ps.Cantidad -= cantidadProductos.ElementAt(contador);
-                    }
-                    else 
-                    {
-                        int largoDelString = resultado.Nombre.Length;
-                        int inicio = ps.Proveedores.IndexOf(resultado.Nombre);
-                        string parte1 = ps.Proveedores.Substring(0, inicio - 2);
-                        string parte2 = ps.Proveedores.Substring(inicio+largoDelString+2);
-                        ps.Proveedores = parte1 + ", " +parte2;
-                        ps.Cantidad -= cantidadProductos.ElementAt(contador);
-                    }
-                    contador++;
-                }
+                        if (ps.Proveedores == resultado.Nombre)
+                        {
+                            apiDBContext.Stock.Remove(ps);
+                        }
+                        else if (ps.Proveedores.StartsWith(resultado.Nombre))
+                        {
+                            int final = ps.Proveedores.IndexOf(resultado.Nombre);
+                            ps.Proveedores = ps.Proveedores.Substring(resultado.Nombre.Length + 2);
+                            ps.Cantidad -= cantidadProductos.ElementAt(contador);
 
+                            if (ps.Cantidad <= 0)
+                            {
+                                apiDBContext.Stock.Remove(ps);
+                            }
+                        }
+                        else if (ps.Proveedores.EndsWith(resultado.Nombre))
+                        {
+                            int final = ps.Proveedores.IndexOf(resultado.Nombre);
+                            ps.Proveedores = ps.Proveedores.Substring(0, final - 2);
+                            ps.Cantidad -= cantidadProductos.ElementAt(contador);
+
+                            if (ps.Cantidad <= 0)
+                            {
+                                apiDBContext.Stock.Remove(ps);
+                            }
+                        }
+                        else
+                        {
+                            int largoDelString = resultado.Nombre.Length;
+                            int inicio = ps.Proveedores.IndexOf(resultado.Nombre);
+                            string parte1 = ps.Proveedores.Substring(0, inicio - 2);
+                            string parte2 = ps.Proveedores.Substring(inicio + largoDelString + 2);
+                            ps.Proveedores = parte1 + ", " + parte2;
+                            ps.Cantidad -= cantidadProductos.ElementAt(contador);
+
+                            if (ps.Cantidad <= 0)
+                            {
+                                apiDBContext.Stock.Remove(ps);
+                            }
+                        }
+                        contador++;
+                    }
+                }
+                
                 apiDBContext.Proveedor.Remove(resultado);
                 apiDBContext.SaveChanges();
 
