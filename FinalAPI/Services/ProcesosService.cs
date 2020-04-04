@@ -182,11 +182,11 @@ namespace FinalAPI.Services
             try 
             {
                 var stockDB = apiDBContext.Stock.Where(x => x.ProductoID == stock.ProductoID).FirstOrDefault();
-                stockDB.Cantidad = stock.Cantidad;
+                stockDB.Cantidad -= stock.Cantidad;
 
                 if (stockDB.Cantidad <= 0)
                 {
-                    EliminarStock(stockDB.ProductoID);
+                    apiDBContext.Stock.Remove(stockDB);
                 }
 
                 apiDBContext.SaveChanges();

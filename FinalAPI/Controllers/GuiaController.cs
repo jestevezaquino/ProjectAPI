@@ -64,7 +64,7 @@ namespace FinalAPI.Controllers
                 "2 - Obtener listado de entradas por producto (GET): /api/procesos/obtener_entradas_producto/{prodID}",
                 "3 - Obtener listado de entradas por fecha (GET): /api/procesos/obtener_entradas_fecha/{fecha}",
                 "4 - Obtener listado de entradas por proveedor (GET): /api/procesos/obtener_entradas_proveedor/{provID}",
-                "5 - Obtener listado de entradas por producto y proveedor (GET): /api/procesos/obtener_entradas_producto_proveedor/{prodID}&&{provID}",
+                "5 - Obtener listado de entradas por producto y proveedor (GET): /api/procesos/obtener_entrada_producto_proveedor/{prodID}/{provID}",
                 "6 - Agregar una entrada (POST): /api/procesos/agregar_entrada",
                 "6 - Eliminar una entrada (DELETE): /api/procesos/eliminar_entrada/{id}",
                 "8 - Obtener stock (GET): /api/procesos/obtener_stock",

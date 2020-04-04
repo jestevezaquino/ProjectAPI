@@ -54,7 +54,7 @@ namespace FinalAPI.Controllers
         }
 
         [HttpGet]
-        [Route("obtener_entradas_producto_proveedor/{prodID}&&{provID}")]
+        [Route("obtener_entrada_producto_proveedor/{prodID}/{provID}")]
         public IActionResult ObtenerEntradaProductoProveedor(int prodID, int provID) 
         {
             var resultado = procesosService.ObtenerEntradaProductoProveedor(prodID, provID);
