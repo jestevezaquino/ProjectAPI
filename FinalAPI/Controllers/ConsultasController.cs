@@ -11,5 +11,6 @@ namespace FinalAPI.Controllers
     [ApiController]
     public class ConsultasController : ControllerBase
     {
+
     }
 }
