@@ -8,9 +8,9 @@ namespace FinalAPI.Models
     public class Datos
     {
         public int Conteo { get; set; }
-        public int Sumatoria { get; set; }
-        public int Promedio { get; set; }
-        public int Max { get; set; }
-        public int Min { get; set; }
+        public decimal Sumatoria { get; set; }
+        public double Promedio { get; set; }
+        public decimal Max { get; set; }
+        public decimal Min { get; set; }
     }
 }
