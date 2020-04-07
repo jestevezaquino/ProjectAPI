@@ -18,6 +18,7 @@ namespace FinalAPI.Controllers
                 "Los modulos de esta API estan listados debajo:", 
                 "1 - mantenimiento", 
                 "2 - procesos",
+                "3 - consultas",
                 "Para la guia de un modulo, dirijase: /api/guia/mantenimiento o /api/guia/procesos"
             };
         }
@@ -75,6 +76,17 @@ namespace FinalAPI.Controllers
                 "10 - Obtener listado de facturas por clientes (GET): /api/procesos/obtener_facturas_cliente/{clienteID}",
                 "11 - Agregar una factura (POST): /api/procesos/agregar_factura"
             };
+        }
+
+        [HttpGet]
+        [Route("consultas")]
+        public string[] GuiaConsultas()
+        {
+            return new string[]
+             {
+                "Las distintas opciones en este modulo son: ",
+                "1 - Obtener estadisticas (GET): /api/consultas/obtener_stats/{tabla}/{campo}/{busqueda}",
+             };
         }
     }
 }
